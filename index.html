@@ -1,22 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <!--Boostratp CSS-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
-    integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous" />
-    <!--Local styling-->
-    <link rel="stylesheet" href="assets/weather.css" />
-    <title>Work Day Scheduler</title>
-  </head>
-  <body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <!--Boostratp CSS-->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+  integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous" />
+  <!--Local styling-->
+  <link rel="stylesheet" href="assets/weather.css" />
+  <title>Weather Forecast</title>
+</head>
+<body>
+  <div class="container-fluid" id="body">
+    <div class="row" id="row1">
+      <div class="col" id="weatherHeader">
+        
+      </div>
+    </div>
+    <div class="row" id="row2">
+      <div class="col-4" id="searchCol">
+        <!--weather search-->
+        <form class="input-group mb-3">
+          <input type="text" class="form-control" id="city" placeholder="Search by City" aria-label="Search by City" aria-describedby="searchBtn">
+          <button class="btn btn-outline-secondary" type="button" id="searchBtn">Search</button>
+        </form>
+      </div>
+      <div class="col-8" id="forecastCol">
+        <main class="card">
+          <h2 id="cityName"></h2>
+          <p id="temp"></p>
+          <p id="humid"></p>
+          <p id="wind"></p>
+          <p id="uv"></p>
+        </main>
+      </div>
+    </div>
+  </div>
 
-
-    
-    <!--Bootstrap JS --> 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
-    crossorigin="anonymous"></script>
-  </body>
+  <!--jQuery CDN-->  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <!--Day.js CDN-->
+  <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+  <script>dayjs().format()</script>
+  <!--Bootstrap JS CDN-->  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+  crossorigin="anonymous"></script>
+  <!--Local JS CDN-->
+  <script src="assets/weather.js"></script>
+</body>
+</html>
