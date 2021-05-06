@@ -8,7 +8,7 @@
 }
 
 #row1 {
-    height:10%;
+    height:5%;
 }
 
 #weatherHeader {
@@ -19,7 +19,7 @@
 }
 
 #row2 {
-    height:90%;
+    height:95%;
 }
 
 #searchCol {    
@@ -28,8 +28,16 @@
     background-color:red;
 }
 
+#history {
+    height:90%;
+}
+
 #forecastCol {
     height:100%;
     padding:10px;
     background-color:green;
+}
+
+main {
+    height:100%;
 }
