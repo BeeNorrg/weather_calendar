@@ -13,13 +13,12 @@ console.log("my dayjs is augmented", augmentedNow)
 
 //constructs search history
 function historyBuild(){
-    console.log(searches.length);
-    for (i = 0; i < searches.length; i++) {
-        let pulledCity = searches[i];
-        let buttonMaker = $("<button>").attr("class", "searchHistory");
-        let historyButton = buttonMaker.html(pulledCity);
-        $("#history").append(historyButton);
-    }
+        for (i = 0; i < searches.length; i++) {
+            let pulledCity = searches[i];
+            let buttonMaker = $("<button>").attr("class", "searchHistory");
+            let historyButton = buttonMaker.html(pulledCity);
+            $("#history").append(historyButton);
+        }
 }
 
 //adds searched cities to local storage if they aren't already in there
@@ -88,7 +87,7 @@ $(document).ready(function(){
             $("#uv").empty();
 
             //attaching weather variables to DOM elements
-            $("#cityName").append(lastCity);
+            $("#cityName").append(lastCity + ", " + augmentedNow);
 
             $("#temp").append($("<p>").html("Temperature: " + fTemp + " &#8457"));
             $("#humid").append($("<p>").html("Humidity: " + humidity + " %"));
@@ -115,20 +114,39 @@ $(document).ready(function(){
             else {
                 $(UVtext).attr("class", "card text-white bg-danger mb-3");
             }
+            $("#uv").append("UV index: ");
             $("#uv").append(UVtext);
             //add search to history if it's not there already
             historyBuild();
             $("#forecast").empty();
             $("#forecast").html("<header> 5 Day Forecast");
             console.log("onecall daily length:", onecall.daily.length);
-            for (i=0; i < onecall.daily.length; i++) {
+            for (i=1; i < onecall.daily.length; i++) {
                 console.log(onecall.daily[i]);
-                if (i > 4) {
+                if (i > 5) {
                     break;
                 } 
-                let forecastCard = $("<article>");
+                let forecastCard = $("<figure>");
                 forecastCard.attr("class", "card text-white bg-primary");
-                forecastCard.css({})
+                forecastCard.css({"display": "inline-block", "font-size": "medium", "text-align": "center", "margin": "10px", "max-width": "150px",})
+                let foreDate = dayjs(onecall.daily[i].dt*1000).format('dddd/MMMM/D');
+                console.log(foreDate);
+                let betterDate = foreDate.replace(new RegExp("/", "g"), " ");
+                let improvedDate = betterDate.replace(" ", ", ");
+                console.log(improvedDate);
+                let foreIcon = onecall.daily[i].weather[0].icon;
+                let foreKTemp = onecall.daily[i].temp.day;
+                let foreFTemp = $("<p>").html("Temp: " + (Math.round((foreKTemp * (9 / 5)) - 459.67) +
+                    " &#8457"));
+                let futureHumid = $("<p>").html("Humidity: " + onecall.daily[i].humidity + "%");
+                let futureEl = $("<img>");
+                let futureURL = "https://openweathermap.org/img/wn/" + foreIcon + "@2x.png";
+                let futureIcon = $(futureEl).attr("src", futureURL);
+                forecastCard.append(improvedDate);
+                forecastCard.append(futureIcon);
+                forecastCard.append(foreFTemp);
+                forecastCard.append(futureHumid);
+                $("#forecast").append(forecastCard);
             }
         })//onecall ajax call
     })//weather ajax call
@@ -176,7 +194,7 @@ $("#searchBtn").click(function () {
             $("#uv").empty();
 
             //attaching weather variables to DOM elements
-            $("#cityName").append(cityPruner);
+            $("#cityName").append(cityPruner + ", " + augmentedNow);
 
             $("#temp").append($("<p>").html("Temperature: " + fTemp + " &#8457"));
             $("#humid").append($("<p>").html("Humidity: " + humidity + " %"));
@@ -203,10 +221,41 @@ $("#searchBtn").click(function () {
             else {
                 $(UVtext).attr("class", "card text-white bg-danger mb-3");
             }
+            $("#uv").append("UV index: ");
             $("#uv").append(UVtext);
             //add search to history if it's not there already
             searchParse();
             historyBuild();
+            $("#forecast").empty();
+            $("#forecast").html("<header> 5 Day Forecast");
+            console.log("onecall daily length:", onecall.daily.length);
+            for (i=1; i < onecall.daily.length; i++) {
+                console.log(onecall.daily[i]);
+                if (i > 5) {
+                    break;
+                } 
+                let forecastCard = $("<figure>");
+                forecastCard.attr("class", "card text-white bg-primary");
+                forecastCard.css({"display": "inline-block", "font-size": "medium", "text-align": "center", "margin": "10px", "max-width": "150px",})
+                let foreDate = dayjs(onecall.daily[i].dt*1000).format('dddd/MMMM/D');
+                console.log(foreDate);
+                let betterDate = foreDate.replace(new RegExp("/", "g"), " ");
+                let improvedDate = betterDate.replace(" ", ", ");
+                console.log(improvedDate);
+                let foreIcon = onecall.daily[i].weather[0].icon;
+                let foreKTemp = onecall.daily[i].temp.day;
+                let foreFTemp = $("<p>").html("Temp: " + (Math.round((foreKTemp * (9 / 5)) - 459.67) +
+                    " &#8457"));
+                let futureHumid = $("<p>").html("Humidity: " + onecall.daily[i].humidity + "%");
+                let futureEl = $("<img>");
+                let futureURL = "https://openweathermap.org/img/wn/" + foreIcon + "@2x.png";
+                let futureIcon = $(futureEl).attr("src", futureURL);
+                forecastCard.append(improvedDate);
+                forecastCard.append(futureIcon);
+                forecastCard.append(foreFTemp);
+                forecastCard.append(futureHumid);
+                $("#forecast").append(forecastCard);
+            }
         })//onecall ajax call
     })//weather ajax call
 })//searchButton ajax calls end here
@@ -256,7 +305,7 @@ $("#history").on('click', '.searchHistory', function(event) {
             $("#uv").empty();
 
             //attaching weather variables to DOM elements
-            $("#cityName").append(pastCity);
+            $("#cityName").append(pastCity + ", " + augmentedNow);
 
             $("#temp").append($("<p>").html("Temperature: " + fTemp + " &#8457"));
             $("#humid").append($("<p>").html("Humidity: " + humidity + " %"));
@@ -283,8 +332,39 @@ $("#history").on('click', '.searchHistory', function(event) {
             else {
                 $(UVtext).attr("class", "card text-white bg-danger mb-3");
             }
+            $("#uv").append("UV index: ");
             $("#uv").append(UVtext);
             historyBuild();
+            $("#forecast").empty();
+            $("#forecast").html("<header> 5 Day Forecast");
+            console.log("onecall daily length:", onecall.daily.length);
+            for (i=1; i < onecall.daily.length; i++) {
+                console.log(onecall.daily[i]);
+                if (i > 5) {
+                    break;
+                } 
+                let forecastCard = $("<figure>");
+                forecastCard.attr("class", "card text-white bg-primary");
+                forecastCard.css({"display": "inline-block", "font-size": "medium", "text-align": "center", "margin": "10px", "max-width": "150px",})
+                let foreDate = dayjs(onecall.daily[i].dt*1000).format('dddd/MMMM/D');
+                console.log(foreDate);
+                let betterDate = foreDate.replace(new RegExp("/", "g"), " ");
+                let improvedDate = betterDate.replace(" ", ", ");
+                console.log(improvedDate);
+                let foreIcon = onecall.daily[i].weather[0].icon;
+                let foreKTemp = onecall.daily[i].temp.day;
+                let foreFTemp = $("<p>").html("Temp: " + (Math.round((foreKTemp * (9 / 5)) - 459.67) +
+                    " &#8457"));
+                let futureHumid = $("<p>").html("Humidity: " + onecall.daily[i].humidity + "%");
+                let futureEl = $("<img>");
+                let futureURL = "https://openweathermap.org/img/wn/" + foreIcon + "@2x.png";
+                let futureIcon = $(futureEl).attr("src", futureURL);
+                forecastCard.append(improvedDate);
+                forecastCard.append(futureIcon);
+                forecastCard.append(foreFTemp);
+                forecastCard.append(futureHumid);
+                $("#forecast").append(forecastCard);
+            }
         })//onecall ajax call
     })//weather ajax call
 })//searchHistory ajax calls end here

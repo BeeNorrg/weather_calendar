@@ -8,24 +8,22 @@
 }
 
 #row1 {
-    height:5%;
+    height:10%;
 }
 
 #weatherHeader {
     height:100%;
-    padding:5px;
-    background-color:blue;
+    padding:0px;
     display:inline-block;
 }
 
 #row2 {
-    height:95%;
+    height:90%;
 }
 
 #searchCol {    
     height:100%;
     padding:10px;
-    background-color:red;
 }
 
 #history {
@@ -35,7 +33,20 @@
 #forecastCol {
     height:100%;
     padding:10px;
-    background-color:green;
+}
+
+#currentlySelected {
+    max-height:50%
+}
+
+#forecast {
+    max-height:50%;
+}
+
+nav {
+    padding:0px;
+    color:white;
+    font-weight:500;
 }
 
 main {

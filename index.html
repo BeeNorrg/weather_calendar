@@ -15,7 +15,7 @@
   <div class="container-fluid" id="body">
     <div class="row" id="row1">
       <div class="col" id="weatherHeader">
-        
+        <nav class="navbar navbar-light bg-dark"><h1>Weather Dashboard</h1></nav>
       </div>
     </div>
     <div class="row" id="row2">
@@ -25,20 +25,18 @@
           <input type="text" class="form-control" id="city" placeholder="Search by City" aria-label="Search by City" aria-describedby="searchBtn">
           <button class="btn btn-outline-secondary" type="button" id="searchBtn">Search</button>
         </form>
-        <div class="card" id="history">
-
-        </div>
+        <section class="card" id="history"></section>
       </div>
       <div class="col-8" id="forecastCol">
-        <section class="card">
+        <article class="card" id="currentlySelected">
           <h2 id="cityName"></h2>
           <p id="temp"></p>
           <p id="humid"></p>
           <p id="wind"></p>
           <p id="uv"></p>
-        </section>
-        <section class="card" id="forecast">
-          
+        </article>
+        <section class="card">
+          <div class="row" id="forecast"></div>
         </section>
       </div>
     </div>
